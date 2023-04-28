@@ -350,7 +350,7 @@ input:focus::-moz-placeholder {
 
 /* line 118, ../../SAIFUL/Running_project/250 eCommerce_HTML/250 eCommerce_HTML/250 eCommerce_HTML/assets/scss/_common.scss */
 .theme-overlay::before {
-  background: #1696e7 none repeat scroll 0 0;
+  background: #0a8ada none repeat scroll 0 0;
   content: "";
   height: 100%;
   left: 0;
@@ -3709,7 +3709,7 @@ input:focus {
 /* line 224, ../../SAIFUL/Running_project/250 eCommerce_HTML/250 eCommerce_HTML/250 eCommerce_HTML/assets/scss/_headerMenu.scss */
 .header-bottom .header-right .shopping-card::before {
   position: absolute;
-  content: "02";
+  content: "10";
   width: 25px;
   height: 25px;
   background: #00b1ff;

@@ -29,13 +29,11 @@
                                  <li><a href="checkout.html">Thanh toán</a></li>
                                  @if (Auth::check()) {
                                  <li class="c-header-nav-item dropdown"><button style="font-size:85%" class="btn header-btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Xin chào @if (session('fullname'))
-                                    {{ session('fullname') }}
-                                    @endif
+                                    Xin chào {{ auth()->user()->fullname }}
                                   </button>
                                   <div class="dropdown-menu dropdown-menu-right pt-0">
                                     <div class="dropdown-header bg-light py-2"><strong>Tài khoản</strong></div>
-                                      <a href="{{ route('admin.profile') }}"><button class="dropdown-item" type="button">Thông tin tài khoản</button></a>
+                                      <a href="{{ route('user.profile') }}"><button class="dropdown-item" type="button">Thông tin tài khoản</button></a>
                                       <a href="{{ route('user.logout') }}"><button class="dropdown-item" type="button"> Đăng xuất</button></a>
                                   </div>
                                 </li>
@@ -67,7 +65,10 @@
                                       <li><a>Danh mục sản phẩm</a>
                                         <ul class="submenu">
                                             <li><a href="{{ route('products') }}"> Danh sách sản phẩm</a></li>
-                                            <li><a href=""> Mô tả sản phẩm</a></li>
+                                            
+                                            @foreach ($categoryList as $category)
+                                                <li><a href="{{ route('productbyCategory',$category->id) }}"> {{ $category->name }}</a></li>  
+                                            @endforeach
                                         </ul>
                                     </li>
                                       <li><a href="{{ route('blog') }}">Tin tức</a>
@@ -81,12 +82,14 @@
                       <div class="col-xl-5 col-lg-3 col-md-3 col-sm-3 fix-card">
                           <ul class="header-right f-right d-none d-lg-block d-flex justify-content-between">
                               <li class="d-none d-xl-block">
+                                <form action="{{ route('searchProduct') }}" method="GET" role="search">
                                   <div class="form-box f-right ">
-                                      <input type="text" name="Search" placeholder="Tìm kiếm sản phẩm">
+                                      <input type="text" id="search" name="search" placeholder="Tìm kiếm sản phẩm" value="{{ old('search') }}">
                                       <div class="search-icon">
                                           <i class="fas fa-search special-tag"></i>
                                       </div>
                                   </div>
+                                </form>
                                </li>
                               <li class=" d-none d-xl-block">
                                   <div class="favorit-items">
@@ -95,7 +98,7 @@
                               </li>
                               <li>
                                   <div class="shopping-card">
-                                      <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+                                      <a href="{{ route('user.showCart') }}"><i class="fas fa-shopping-cart"></i></a>
                                   </div>
                                 </li>
                                 

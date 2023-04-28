@@ -36,7 +36,7 @@
                     <p>{{ $product->price }} VNĐ</p>
                 </div>
               <div class="add_to_cart">
-                  <a href="#" class="btn_3">Thêm vào giỏ hàng</a>
+                  <a href="{{ route('user.addCart',$product->id) }}" class="btn_3">Thêm vào giỏ hàng</a>
               </div>
             </div>
           </div>

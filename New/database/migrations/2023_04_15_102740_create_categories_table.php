@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnUrlCategoryTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class AddColumnUrlCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            //
-            $table->string('url')->after('name');
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+            $table->boolean('category_type');
+            $table->string('name');
+            $table->timestamps();
         });
     }
 
@@ -26,8 +28,6 @@ class AddColumnUrlCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('categories');
     }
 }

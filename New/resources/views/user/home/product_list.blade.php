@@ -15,32 +15,32 @@
             <div class="col-md-4">
                 <div class="product_sidebar">
                     <div class="single_sedebar">
-                        <form action="#">
-                            <input type="text" name="#" placeholder="Search keyword">
+                        <form action="{{ route('searchProduct') }}" method="GET" role="search">
+                            <input type="text" id="search" name="search" placeholder="Tìm kiếm sản phẩm" value="{{ old('search') }}">
                             <i class="ti-search"></i>
                         </form>
                     </div>
                     <div class="single_sedebar">
+                        @if(!empty($category_name))
+                            <div class="select_option">
+                                <div class="select_option_list">{{ $category_name }}<i class="right fas fa-caret-down"></i> </div>
+                                <div class="select_option_dropdown">
+                                    @foreach ($categoryList as $category)
+                                    <p><a href="{{ route('productbyCategory',$category->id) }}">{{ $category->name }}</a></p>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @else
                         <div class="select_option">
-                            <div class="select_option_list">Category <i class="right fas fa-caret-down"></i> </div>
+                            <div class="select_option_list">Danh mục sản phẩm <i class="right fas fa-caret-down"></i> </div>
                             <div class="select_option_dropdown">
-                                <p><a href="#">Category 1</a></p>
-                                <p><a href="#">Category 2</a></p>
-                                <p><a href="#">Category 3</a></p>
-                                <p><a href="#">Category 4</a></p>
+                                @foreach ($categoryList as $category)
+                                <p><a href="{{ route('productbyCategory',$category->id) }}">{{ $category->name }}</a></p>
+                                @endforeach
                             </div>
                         </div>
-                    </div>
-                    <div class="single_sedebar">
-                        <div class="select_option">
-                            <div class="select_option_list">Type <i class="right fas fa-caret-down"></i> </div>
-                            <div class="select_option_dropdown">
-                                <p><a href="#">Type 1</a></p>
-                                <p><a href="#">Type 2</a></p>
-                                <p><a href="#">Type 3</a></p>
-                                <p><a href="#">Type 4</a></p>
-                            </div>
-                        </div>
+                        @endif
+                        
                     </div>
                 </div>
             </div>
@@ -58,10 +58,10 @@
                         </div>
                         @endforeach                         
                         @endif
-                    <div>
-                        {{ $products->links() }}
-                    </div>
                 </div>
+                @if (session('found'))
+                    <div class="alert alert-danger">{{ session('found') }}</div>
+                @endif
             </div>
         </div>
     </div>

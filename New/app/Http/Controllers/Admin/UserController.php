@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class UserController extends Controller
 {
@@ -98,4 +99,5 @@ class UserController extends Controller
         User::find($id)->delete();
         return redirect()->route('admin.users.index')->with('msg','Xoá người dùng thành công');
     }
+
 }

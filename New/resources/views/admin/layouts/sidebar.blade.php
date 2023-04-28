@@ -14,17 +14,22 @@
           </svg>Dashboard<span class="badge badge-info">Mới</span></a></li>
       <li class="c-sidebar-nav-title">Administrator</li>
       
-      <li class="c-sidebar-nav-item c-sidebar-nav-dropdown"><a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle">
+      <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ route('admin.categories.index') }}">
         <svg class="c-sidebar-nav-icon">
           <use xlink:href="/vendors/@coreui/icons/svg/free.svg#cil-puzzle"></use>
-        </svg> Danh mục</a>
-      <ul class="c-sidebar-nav-dropdown-items">
-        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ route('admin.categories.news.index') }}"><span class="c-sidebar-nav-icon"></span> Tin tức</a></li>
-        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ route('admin.categories.products.index') }}"><span class="c-sidebar-nav-icon"></span> Sản phẩm</a></li>
-        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ route('admin.categories.index') }}"><span class="c-sidebar-nav-icon"></span> Cài đặt...</a></li>
-      </ul>
+        </svg>Danh mục</a>
+    </li>
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ route('admin.products.index') }}">
+          <svg class="c-sidebar-nav-icon">
+            <use xlink:href="/vendors/@coreui/icons/svg/free.svg#cil-puzzle"></use>
+          </svg>Sản phẩm</a>
       </li>
-    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ route('admin.users.index') }}">
+      <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ route('admin.news.index') }}">
+        <svg class="c-sidebar-nav-icon">
+          <use xlink:href="/vendors/@coreui/icons/svg/free.svg#cil-puzzle"></use>
+        </svg>Tin tức</a>
+      </li>
+      <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ route('admin.users.index') }}">
         <svg class="c-sidebar-nav-icon">
           <use xlink:href="/vendors/@coreui/icons/svg/free.svg#cil-puzzle"></use>
         </svg>Người dùng</a>

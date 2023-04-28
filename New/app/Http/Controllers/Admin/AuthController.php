@@ -9,15 +9,19 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     public function login(){
-        $title = 'Login';
+        $title = 'Đăng nhập';
 
         return view('admin.login.login',compact('title'));
     }
 
     public function checklogin(Request $request){
         $request->validate([
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
+        ],[
+            'email.required' => 'Vui lòng nhập địa chỉ email',
+            'email.email' => 'Email không đúng định dạng',
+            'password.required' => 'Vui lòng nhập password',
         ]);
         if(Auth::attempt(['email' => $request->email,'password' => $request->password])){
             return redirect()->route('admin.dashboard')->with('msg', 'Đăng nhập thành công');
@@ -34,7 +38,6 @@ class AuthController extends Controller
 
     public function profile(){
         $title = 'Tài khoản của tôi';
-        
         return view('admin.login.profile',compact('title'));
     }
 

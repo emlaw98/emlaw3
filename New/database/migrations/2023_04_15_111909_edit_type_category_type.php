@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Migrate extends Migration
+class EditTypeCategoryType extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,9 @@ class Migrate extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('categories', function (Blueprint $table) {
+            $table->boolean('category_type')->default(0)->change();
+        });
     }
 
     /**
@@ -23,6 +25,8 @@ class Migrate extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('categories', function (Blueprint $table) {
+            //
+        });
     }
 }

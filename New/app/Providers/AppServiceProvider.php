@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Providers;
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\Categories;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -23,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer('*',function($view) {
+            $view->with('categoryProduct', Categories::Where('category_type', '0'));
+        });
     }
 }

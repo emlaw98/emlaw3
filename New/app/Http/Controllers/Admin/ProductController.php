@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Products;
 use Illuminate\Support\Str;
+use App\Models\Categories;
 
 class ProductController extends Controller
 {
@@ -14,12 +15,13 @@ class ProductController extends Controller
 
         $productList = Products::paginate(20);
 
-        return view('admin.categories.products.list',compact('title','productList'));
+        return view('admin.products.list',compact('title','productList'));
     }
 
     public function create(){
         $title = 'Tạo sản phẩm';
-        return view('admin.categories.products.create',compact('title',));
+        $categories = Categories::where('category_type', '0')->get()->all();
+        return view('admin.products.create',compact('title','categories'));
     }
     
     public function store(Request $request){
@@ -27,14 +29,16 @@ class ProductController extends Controller
             'name' => 'required|unique:products',
             'image' => 'required',
             'price' => 'required|integer',
-            'description' => 'required'
+            'description' => 'required',
+            'category_id' => 'required',
         ],[
             'name.required' => 'Chưa nhập tên sản phẩm',
             'name.unique' => 'Sản phẩm đã tồn tại',
             'image.required' => 'Chưa nhập hình ảnh',
             'price.required' => 'Chưa nhập giá sản phẩm',
             'price.integer' => 'Giá sản phẩm phải là một số',
-            'description.required' => 'Chưa nhập mô tả sản phẩm' 
+            'description.required' => 'Chưa nhập mô tả sản phẩm' ,
+            'category_id.required' => 'Chưa chọn danh mục sản phẩm',
         ]);
         if ($request->hasFile('image')){
             $file = $request->file('image');
@@ -51,21 +55,24 @@ class ProductController extends Controller
             }
         }
         $data = [
+            'category_id' => $request->category_id,
             'name' => $request->name,
             'image' => $image,
             'price' => $request->price,
             'description' => $request->description,
         ];
         Products::create($data);
-        return redirect()->route('admin.categories.products.index')->with('msg', 'Tạo sản phẩm thành công');
+        return redirect()->route('admin.products.index')->with('msg', 'Tạo sản phẩm thành công');
     }
 
     public function edit($id){
         $title = 'Sửa sản phẩm';
 
+        $categories = Categories::where('category_type', '0')->get()->all();
+
         $product = Products::find($id);
 
-        return view('admin.categories.products.edit',compact('title','product'));
+        return view('admin.products.edit',compact('title','product','categories'));
     }
 
     public function update(Request $request,$id){
@@ -102,14 +109,28 @@ class ProductController extends Controller
         ];
         if($request->image){
             $data['image'] = $image;
-        };
+        }
+        if($request->category_id){
+            $data['category_id'] = $request->category_id;
+        }
         $product = Products::find($id);
         $product->update($data);
-        return redirect()->route('admin.categories.products.index')->with('msg', 'Sửa sản phẩm thành công');
+        return redirect()->route('admin.products.index')->with('msg', 'Sửa sản phẩm thành công');
     }
 
     public function delete($id){
         Products::find($id)->delete();
-        return redirect()->route('admin.categories.products.index')->with('msg', 'Xoá sản phẩm thành công');
+        return redirect()->route('admin.products.index')->with('msg', 'Xoá sản phẩm thành công');
     }
+
+    public function search(Request $request){
+        
+        if($request->search){
+            $title = 'Sản phẩm';
+            $stt = 0;
+            $productList = Products::Where('name','LIKE','%'.$request->search.'%')->get()->all();
+            return view('admin.products.list',compact('productList','title','stt'));
+        }
+    }
+
 }

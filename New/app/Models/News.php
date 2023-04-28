@@ -12,11 +12,15 @@ class News extends Model
     protected $table = 'news';
 
     protected $fillable = [
+        'category_id',
         'title',
         'image',
         'content',
     ];
     public function imageUrl(){
         return '/image/news/'.$this->image;
+    }
+    public function category(){
+        return $this->belongsTo(Categories::class, 'category_id','id');
     }
 }

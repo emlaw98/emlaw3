@@ -15,8 +15,16 @@
     @endif
     <h1>{{ $title }}</h1>
 
-    <form action="{{ route('admin.categories.news.update',$new->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.news.update',$new->id) }}" method="POST" enctype="multipart/form-data">
         @method('put')
+        <div class="mb-3">
+        <select name="category_id" class="form-control">
+            <option selected value="">Danh mục...</option>
+            @foreach ($categories as $category)
+            <option value="{{ $category->id }}">{{ $category->name }}</option> 
+            @endforeach
+          </select>
+        </div>
         <div class="mb-3">
             <input type="text" class = "form-control" name="title" placeholder="Tiêu đề..." value="{{ $new->title }}">
             @error('title')
@@ -38,7 +46,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Lưu</button>
-        <a href="{{ route('admin.categories.index') }}" class= "btn btn-warning">Quay lại</a>
+        <a href="{{ route('admin.news.index') }}" class= "btn btn-warning">Quay lại</a>
         @csrf
     </form>
 @endsection
